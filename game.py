@@ -5,7 +5,9 @@ import pygame
 import tkinter as tk
 from tkinter import messagebox
 
-numOfSnakes = 1
+#CHANGE ME
+numOfSnakes = 40
+train_network = False
 
 class cube(object):
     rows = 10
@@ -210,7 +212,10 @@ def main():
     rows = 10
     win = pygame.display.set_mode((width, width))
     randloc = (random.randint(2, rows - 2), random.randint(2, rows - 2)) #Generates a psuedo random spawn that isn't on the edge
-    snakes = [generateSnake(x, randloc) for x in range(numOfSnakes)] #Generates x snakes with the same spawn
+    if train_network:
+        snakes = [generateSnake(x, randloc) for x in range(numOfSnakes)] #Generates x snakes with the same spawn
+    else:
+        snakes = [generateSnake(0, randloc)]
     snack = cube(globalRandomSnack(rows, snakes), color=(0, 255, 0)) #Generates a globalized food location to start
     for s in snakes:
         s.insertSnack(snack) #injects the food location to each snake
@@ -226,7 +231,8 @@ def main():
             if s.isAlive():
                 quit = False
         if quit:
-            #neuralnetwork.gameIsOver(snakes)
+            if train_network:
+                neuralnetwork.gameIsOver(snakes)
             randloc = (random.randint(2, rows - 2), random.randint(2, rows - 2))
             for s in snakes:
                 s.reset(randloc)
@@ -237,7 +243,10 @@ def main():
         for s in snakes:
             if s.isAlive() == True:
                 s.hunger+=1
-                s.move(usemodel.selectMove(s.head.pos, s.body, s.snack.pos, rows, s.id, s.direction))
+                if train_network:
+                    s.move(neuralnetwork.selectMove(s.head.pos, s.body, s.snack.pos, rows, s.id, s.direction))
+                else:
+                    s.move(usemodel.selectMove(s.head.pos, s.body, s.snack.pos, rows, s.id, s.direction))
                 if s.isFirst3():
                     s.addCube()
                     s.addFirst3()

@@ -2,6 +2,9 @@ import random
 from tensorflow import keras
 import numpy
 
+#CHANGE ME:
+changeScoreThreshold = 900
+
 adjustedMoves = {'UP': ["LEFT", "UP", "RIGHT"], 'LEFT': ["DOWN", "LEFT", "UP"], 'RIGHT': ['UP', 'RIGHT', 'DOWN'], 'DOWN': ['RIGHT', 'DOWN', 'LEFT']} #0, 1, 2 become Left, Forward, Righ
 moves = ["LEFT", "RIGHT", "DOWN", "UP"]
 current_pool = []
@@ -115,7 +118,7 @@ def gameIsOver(snakes):
     scores.append(highScore[0])
 
     #If we got a good model, save it
-    if highScore[0] > 900:
+    if highScore[0] > changeScoreThreshold:
         current_pool[highScore[1]].save(f"snakeScore{highScore[0]}.h5")
 
     #If we had a new high score, reproduce with the high scorers, otherwise mutate everything just a little

@@ -1,6 +1,9 @@
 from tensorflow import keras
 import numpy
 
+#CHANGE ME
+bestModel = "snakeScore950.h5"
+
 adjustedMoves = {'UP': ["LEFT", "UP", "RIGHT"], 'LEFT': ["DOWN", "LEFT", "UP"], 'RIGHT': ['UP', 'RIGHT', 'DOWN'], 'DOWN': ['RIGHT', 'DOWN', 'LEFT']} #0, 1, 2 become Left, Forward, Righ
 moves = ["LEFT", "RIGHT", "DOWN", "UP"]
 
@@ -51,6 +54,6 @@ def predict(model, input, direction):
 
 def selectMove(head, body, snack, rows, id1, direction): #variable id1 isn't necessary but is on the other script, so to avoid being forced to change the input every time just kept it here
     input = createInput(head,body,snack,rows,direction) #[Left, Forward, Right]
-    model = keras.models.load_model('snakeScore900.h5')
+    model = keras.models.load_model(bestModel)
     move = predict(model, input, direction)
     return move
