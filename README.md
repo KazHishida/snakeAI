@@ -1,9 +1,9 @@
 # SnakeAI
 ## Introduction
-Using a pre-build, open-source, but heavily modified game of Snake found on TechWithTim's website, I created a neural network to predict the best move that is trained through intensive training with a genetic algorithm.
+Using a pre-built, open-source, but heavily modified game of Snake found on TechWithTim's website, I created a neural network to predict the best move that is trained through intensive training with a genetic algorithm.
 ## Training
 To train the network, simply run the main script (game.py) and set train_snakes at the top to True. You can tinker with the population by changing the variable numOfSnakes.
-While training, multiple snakes will run at the same time, which may be a little confusing. Each snake will have a randomized color, and each snake will have its own color-coded food as well. It will look as follows:
+While training, multiple snakes will run at the same time, which may be visually confusing. To try to keep things simple, each snake will have its own randomized color, and each snake will have its own color-coded food as well. In addition, once a snake perishes, its body will disappear from the game-board, leaving behind its head where it died.
 
  ![Example](https://im7.ezgif.com/tmp/ezgif-7-c80d6908d33b.gif)
  
